@@ -8,11 +8,11 @@ boolean disableIt = "app_view.jsp".equalsIgnoreCase(request.getParameter("file_n
 %>
 
 <script>
-var userReadCheckBoxIds = ["#user_condition_r", "#user_documentreference_r", "#user_encounter_r", "#user_medicationstatement_r", "#user_medicationadministration_r", "#user_medicationrequest_r", "#user_medicationdispense_r", "#user_observation_r", "#user_patient_r", "#user_procedure_r"];
-var userWriteCheckBoxIds = ["#user_condition_w", "#user_documentreference_w", "#user_encounter_w", "#user_medicationstatement_w", "#user_medicationadministration_w" "#user_medicationrequest_w", "#user_medicationdispense_w", "#user_observation_w", "#user_patient_w", "#user_procedure_w"];
-var patientReadCheckBoxIds = ["#patient_condition_r", "#patient_documentreference_r", "#patient_encounter_r", "#patient_medicationstatement_r", "#patient_medicationadministration_r", "#patient_medicationrequest_r", "#patient_medicationdispense_r", "#patient_observation_r", "#patient_patient_r", "#patient_procedure_r"];
-var patientWriteCheckBoxIds = ["#patient_condition_w", "#patient_documentreference_w", "#patient_encounter_w", "#patient_medicationstatement_w", "#patient_medicationadministration_w", "#patient_medicationrequest_w", "#patient_medicationdispense_w", "#patient_observation_w", "#patient_patient_w", "#patient_procedure_w"];
-var resources = ["Condition", "DocumentReference", "Encounter", "MedicationStatement", "MedicationAdministration", "MedicationRequest", "MedicationDispense", "Observation", "Patient", "Procedure"];
+var userReadCheckBoxIds = ["#user_condition_r", "#user_documentreference_r", "#user_encounter_r", "#user_medicationstatement_r", "#user_medicationadministration_r", "#user_medicationrequest_r", "#user_medicationdispense_r", "#user_observation_r","#user_diagnosticreport_r", "#user_patient_r", "#user_procedure_r"];
+var userWriteCheckBoxIds = ["#user_condition_w", "#user_documentreference_w", "#user_encounter_w", "#user_medicationstatement_w", "#user_medicationadministration_w" "#user_medicationrequest_w", "#user_medicationdispense_w", "#user_observation_w", "#user_diagnosticreport_w","#user_patient_w", "#user_procedure_w"];
+var patientReadCheckBoxIds = ["#patient_condition_r", "#patient_documentreference_r", "#patient_encounter_r", "#patient_medicationstatement_r", "#patient_medicationadministration_r", "#patient_medicationrequest_r", "#patient_medicationdispense_r", "#patient_observation_r","#patient_diagnosticreport_r", "#patient_patient_r", "#patient_procedure_r"];
+var patientWriteCheckBoxIds = ["#patient_condition_w", "#patient_documentreference_w", "#patient_encounter_w", "#patient_medicationstatement_w", "#patient_medicationadministration_w", "#patient_medicationrequest_w", "#patient_medicationdispense_w", "#patient_observation_w","#patient_diagnosticreport_w", "#patient_patient_w", "#patient_procedure_w"];
+var resources = ["Condition", "DocumentReference", "Encounter", "MedicationStatement", "MedicationAdministration", "MedicationRequest", "MedicationDispense", "Observation", "DiagnosticReport", "Patient", "Procedure"];
 
 
 function remove_user_all_from_selected () {
@@ -92,6 +92,12 @@ function update_user_r () {
 	} else {
 		$("#user_observation_r").prop("checked", false); 
 	}
+	if ($("#user_diagnosticreport_r").is(":checked")) {
+        $("#user_diagnosticreport_r").prop("checked", true);
+        scopes += " "+typeName+"/DiagnosticReport.read";
+    } else {
+        $("#user_diagnosticreport_r").prop("checked", false);
+    }
 	if ($("#user_patient_r").is(":checked")) {
 		$("#user_patient_r").prop("checked", true); 
 		scopes += " "+typeName+"/Patient.read";
@@ -174,6 +180,12 @@ function update_user_w (scopes) {
 	} else {
 		$("#user_observation_w").prop("checked", false); 
 	}
+	if ($("#user_diagnosticreport_w").is(":checked")) {
+        $("#user_diagnosticreport_w").prop("checked", true);
+        scopes += " "+typeName+"/DiagnosticReport.write";
+    } else {
+        $("#user_diagnosticreport_w").prop("checked", false);
+    }
 	if ($("#user_patient_w").is(":checked")) {
 		$("#user_patient_w").prop("checked", true); 
 		scopes += " "+typeName+"/Patient.write";
@@ -251,6 +263,12 @@ function update_patient_r (scopes) {
 	} else {
 		$("#patient_observation_r").prop("checked", false); 
 	}
+	if ($("#patient_diagnosticreport_r").is(":checked")) {
+        $("#patient_diagnosticreport_r").prop("checked", true);
+        scopes += " patient/DiagnosticReport.read";
+    } else {
+        $("#patient_diagnosticreport_r").prop("checked", false);
+    }
 	if ($("#patient_patient_r").is(":checked")) {
 		$("#patient_patient_r").prop("checked", true); 
 		scopes += " patient/Patient.read";
@@ -321,6 +339,12 @@ function update_patient_w (scopes) {
 	} else {
 		$("#patient_observation_w").prop("checked", false); 
 	}
+	if ($("#patient_diagnosticreport_w").is(":checked")) {
+        $("#patient_diagnosticreport_w").prop("checked", true);
+        scopes += " patient/DiagnosticReport.write";
+    } else {
+        $("#patient_diagnosticreport_w").prop("checked", false);
+    }
 	if ($("#patient_patient_w").is(":checked")) {
 		$("#patient_patient_w").prop("checked", true); 
 		scopes += " patient/Patient.write";
@@ -775,12 +799,23 @@ $(document).ready(function() {
 					</td>
 				</tr>
 				<tr>
+                    <td style="border: 1px solid grey; padding: 5px;">DiagnosticReport</td>
+                    <td style="border: 1px solid grey; padding: 5px;">
+                        <label for="user_diagnosticreport_r">read
+                            <input <%if (disableIt) {out.print("disabled");} %> type="checkbox" id="user_diagnosticreport_r" name="user_diagnosticreport_r" >
+                        </label>
+                        <label for="user_diagnosticreport_w"> write
+                            <input <%if (disableIt) {out.print("disabled");} %> type="checkbox" id="user_diagnosticreport_w" name="user_diagnosticreport_w" >
+                        </label>
+                    </td>
+                </tr>
+				<tr>
 					<td style="border: 1px solid grey; padding: 5px;">Encounter</td>
 					<td style="border: 1px solid grey; padding: 5px;">
 						<label for="user_encounter_r">read
-							<input <%if (disableIt) {out.print("disabled");} %> type="checkbox" id="user_encounter_r" name="user_encounter_r" >  
+							<input <%if (disableIt) {out.print("disabled");} %> type="checkbox" id="user_encounter_r" name="user_encounter_r" >
 						</label>
- 						<label for="user_encounter_w">write	
+ 						<label for="user_encounter_w">write
  							<input <%if (disableIt) {out.print("disabled");} %> type="checkbox" id="user_encounter_w" name="user_encounter_w" >
  						</label>
 					</td>
@@ -899,6 +934,17 @@ $(document).ready(function() {
  					</label>
 				</td>
 			</tr>
+			<tr>
+                <td style="border: 1px solid grey; padding: 5px;">DiagnosticReport</td>
+                <td style="border: 1px solid grey; padding: 5px;">
+                    <label for="patient_diagnosticreport_r">read
+                        <input <%if (disableIt) {out.print("disabled");} %> type="checkbox" id="patient_diagnosticreport_r" name="patient_diagnosticreport_r" >
+                    </label>
+                    <label for="patient_diagnosticreport_w"> write
+                        <input <%if (disableIt) {out.print("disabled");} %> type="checkbox" id="patient_diagnosticreport_w" name="patient_diagnosticreport_w" >
+                    </label>
+                </td>
+            </tr>
 			<tr>
 				<td style="border: 1px solid grey; padding: 5px;">Encounter</td>
 				<td style="border: 1px solid grey; padding: 5px;">
