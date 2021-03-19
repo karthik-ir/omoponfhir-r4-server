@@ -43,6 +43,14 @@
 		<param-name>transactionServer</param-name>
 		<param-value>http://localhost:8080/</param-value>
 	</context-param>
+	<filter>
+		<filter-name>siteRequestFilter</filter-name>
+		<filter-class>edu.gatech.chai.omoponfhir.servlet.SiteRequestFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>siteRequestFilter</filter-name>
+		<url-pattern>/site/*</url-pattern>
+	</filter-mapping>
 	<servlet>
 		<servlet-name>SmartAuthServices</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet
