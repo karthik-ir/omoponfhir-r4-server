@@ -628,6 +628,9 @@ public class SmartAuthServicesController {
 		tokenResponse.setExpiresIn(expiration);
 		tokenResponse.setScope(smartApp.getScope());
 		tokenResponse.setTokenType("Bearer");
+		tokenResponse.setFname("vivek");
+		tokenResponse.setLname("agarwal");
+		tokenResponse.setEmail("vagarwal@concertai.com");
 
 		String authorization_code = smartSession.getAuthorizationCode();
 		if (authorization_code != null) {
