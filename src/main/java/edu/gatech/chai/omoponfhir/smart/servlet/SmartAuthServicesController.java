@@ -640,7 +640,7 @@ public class SmartAuthServicesController {
 			}
 		}
 
-		logger.debug("token: responding with " + tokenResponse.toString());
+		logger.info("token: responding with " + tokenResponse.toString());
 		
 		// By this time, we should have a token in the session. Delete all old and garbage sessions.
 		smartOnFhirSession.purgeOldSession();
