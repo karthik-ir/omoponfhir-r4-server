@@ -273,7 +273,7 @@ public class SmartAuthServicesController {
 		// If scope has launch, it should have launchContext as it's launched from EHR
 		// If scope has launch/patient, then we need to run patient browser
 		// If scope has launch/encounter, then we need to run encounter browser
-		if (scope == null || scope.isEmpty()) {
+		/*if (scope == null || scope.isEmpty()) {
 			try {
 				error = "invalid_scope";
 				errorDesc = encodeValue("The requested scope is invalid, unknown, or malformed");
@@ -324,7 +324,7 @@ public class SmartAuthServicesController {
 					throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Error", e);
 				}
 			}
-		}
+		}*/
 
 		// The launchContext, if exists, contains a context to resolve this to
 		// patient, encounter, provider, etc. We used the encoding that smart on fhir
