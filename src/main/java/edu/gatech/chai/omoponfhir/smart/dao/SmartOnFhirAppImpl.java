@@ -16,6 +16,13 @@ public class SmartOnFhirAppImpl extends BaseSmartOnFhir implements SmartOnFhirAp
 
 	@Override
 	public int save(SmartOnFhirAppEntry appEntry) {
+		SmartOnFhirAppEntry smartOnFhirAppEntry = this.getSmartOnFhirApp(appEntry.getAppId());
+		if(smartOnFhirAppEntry!=null){
+			logger.error("App with the ID Already exists. Use the Update API instead.");
+			return 1;
+//			throw new Exception("App with the ID Already exists. Use the Update API instead.");
+		}
+
 		String sql = "INSERT INTO SmartOnFhirApp (app_id, app_name, app_type, redirect_uri, launch_uri, scope) values (?,?,?,?,?,?)";
 
 		try (Connection conn = this.connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {

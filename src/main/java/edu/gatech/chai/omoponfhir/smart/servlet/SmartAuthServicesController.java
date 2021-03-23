@@ -1080,7 +1080,9 @@ public class SmartAuthServicesController {
 		appEntry.setLaunchUri(launchUri);
 		appEntry.setAppName(appName);
 
-		smartOnFhirApp.save(appEntry);
+		int res = smartOnFhirApp.save(appEntry);
+		if(res==1)
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "App with the ID Already exists. Use the Update API instead.");
 
 		JwkSetEntry jwkSetEntry = null;
 		if ("System".equals(appType)) {
